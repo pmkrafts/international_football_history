@@ -123,6 +123,8 @@ npm test
 
 ## Data Sources
 
+Data sourced from [Kaggle - International football results from 1872 to 2017](https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017) by Mart Jürisoo.
+
 The dataset consists of four interconnected CSV files:
 - `results.csv` - 49,016 official international matches
 - `shootouts.csv` - ~2,800 penalty shootouts

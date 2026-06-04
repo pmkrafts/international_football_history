@@ -28,3 +28,6 @@ npm-debug.log*
 
 # Data
 info/football/*.csv
+
+# Kilo
+.kilo/
