@@ -1,5 +1,11 @@
+from functools import lru_cache
 from app.db import get_db
 from typing import Optional
+
+@lru_cache(maxsize=128)
+def _cached_query(query: str):
+    con = get_db()
+    return con.execute(query).fetchdf().to_dict('records')
 
 def get_matches(page, limit, team, tournament, date_from, date_to, neutral):
     con = get_db()
@@ -67,6 +73,7 @@ def get_timeline(decade, tournament):
     rows = con.execute(f"SELECT date, home_team, away_team, home_score, away_score, tournament FROM results {where} ORDER BY date").fetchdf().to_dict('records')
     return {"events": rows}
 
+@lru_cache(maxsize=32)
 def get_dashboard_stats(date_from, date_to):
     con = get_db()
     filters = []
@@ -105,6 +112,7 @@ def get_trends(group_by):
     rows = con.execute(query).fetchdf().to_dict('records')
     return {"trends": rows}
 
+@lru_cache(maxsize=32)
 def get_map_countries():
     con = get_db()
     rows = con.execute("SELECT country, COUNT(*) as matches FROM results GROUP BY country ORDER BY matches DESC").fetchdf().to_dict('records')
