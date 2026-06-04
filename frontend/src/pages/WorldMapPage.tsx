@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useMapCountries, useCountryMatches } from "../../hooks/useMapData";
-import PageWrapper from "../../components/layout/PageWrapper";
-import MatchRow from "../../components/ui/MatchRow";
+import { useMapCountries, useCountryMatches } from "@/hooks/useMapData";
+import PageWrapper from "@/components/layout/PageWrapper";
+import MatchRow from "@/components/ui/MatchRow";
+import type { Match } from "@/types";
 
 export default function WorldMapPage() {
   const { data: countries, isLoading } = useMapCountries();
@@ -23,7 +24,7 @@ export default function WorldMapPage() {
               <div className="text-muted">Loading...</div>
             ) : (
               <div className="space-y-2">
-                {countries?.countries?.map((c: any) => (
+                {countries?.countries?.map((c: { country: string; matches: number }) => (
                   <button
                     key={c.country}
                     onClick={() => setSelectedCountry(c.country)}
@@ -59,7 +60,7 @@ export default function WorldMapPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {matches?.data?.map((match: any) => (
+                      {matches?.data?.map((match: Match) => (
                         <MatchRow key={`${match.date}-${match.home_team}-${match.away_team}`} match={match} />
                       ))}
                     </tbody>

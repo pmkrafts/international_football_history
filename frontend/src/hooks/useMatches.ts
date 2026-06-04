@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../lib/api";
+import { api, type ApiParams } from "@/lib/api";
 
-export function useMatches(params?: any) {
+export function useMatches(params?: ApiParams) {
   return useQuery({
     queryKey: ["matches", params],
     queryFn: () => api.matches(params),
@@ -16,7 +16,7 @@ export function useMatchDetail(date: string, home: string, away: string) {
   });
 }
 
-export function useDashboardStats(params?: any) {
+export function useDashboardStats(params?: ApiParams) {
   return useQuery({
     queryKey: ["dashboard-stats", params],
     queryFn: () => api.dashboardStats(params),

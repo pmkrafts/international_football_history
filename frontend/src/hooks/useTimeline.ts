@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../lib/api";
+import { api, type ApiParams } from "@/lib/api";
 
-export function useTimeline(params?: any) {
+export function useTimeline(params?: ApiParams) {
   return useQuery({
     queryKey: ["timeline", params],
     queryFn: () => api.timeline(params),

@@ -1,6 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-async function fetcher(path: string, params?: Record<string, string | number | boolean | null | undefined>) {
+export interface ApiParams {
+  [key: string]: string | number | boolean | null | undefined;
+}
+
+async function fetcher(path: string, params?: ApiParams) {
   const url = new URL(`${API_URL}${path}`);
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
@@ -16,16 +20,16 @@ async function fetcher(path: string, params?: Record<string, string | number | b
 
 export const api = {
   health: () => fetcher("/api/health"),
-  matches: (params?: any) => fetcher("/api/matches", params),
+  matches: (params?: ApiParams) => fetcher("/api/matches", params),
   matchDetail: (date: string, home: string, away: string) => fetcher(`/api/matches/${date}/${home}/${away}`),
-  teams: (params?: any) => fetcher("/api/teams", params),
+  teams: (params?: ApiParams) => fetcher("/api/teams", params),
   teamProfile: (name: string) => fetcher(`/api/teams/${encodeURIComponent(name)}`),
-  teamMatches: (name: string, params?: any) => fetcher(`/api/teams/${encodeURIComponent(name)}/matches`, params),
-  teamRivals: (name: string, params?: any) => fetcher(`/api/teams/${encodeURIComponent(name)}/rivals`, params),
-  teamScorers: (name: string, params?: any) => fetcher(`/api/teams/${encodeURIComponent(name)}/scorers`, params),
-  timeline: (params?: any) => fetcher("/api/timeline", params),
-  dashboardStats: (params?: any) => fetcher("/api/stats/dashboard", params),
-  trends: (params?: any) => fetcher("/api/stats/trends", params),
+  teamMatches: (name: string, params?: ApiParams) => fetcher(`/api/teams/${encodeURIComponent(name)}/matches`, params),
+  teamRivals: (name: string, params?: ApiParams) => fetcher(`/api/teams/${encodeURIComponent(name)}/rivals`, params),
+  teamScorers: (name: string, params?: ApiParams) => fetcher(`/api/teams/${encodeURIComponent(name)}/scorers`, params),
+  timeline: (params?: ApiParams) => fetcher("/api/timeline", params),
+  dashboardStats: (params?: ApiParams) => fetcher("/api/stats/dashboard", params),
+  trends: (params?: ApiParams) => fetcher("/api/stats/trends", params),
   mapCountries: () => fetcher("/api/map/countries"),
-  countryMatches: (country: string, params?: any) => fetcher(`/api/map/countries/${encodeURIComponent(country)}/matches`, params),
+  countryMatches: (country: string, params?: ApiParams) => fetcher(`/api/map/countries/${encodeURIComponent(country)}/matches`, params),
 };

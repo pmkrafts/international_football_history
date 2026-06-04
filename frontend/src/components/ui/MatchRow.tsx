@@ -1,7 +1,8 @@
-import { cn, formatDate, getResultColor } from "../../lib/utils";
+import { cn, formatDate, getResultColor } from "@/lib/utils";
+import type { Match } from "@/types";
 
 interface MatchRowProps {
-  match: any;
+  match: Match;
   team?: string;
   className?: string;
 }

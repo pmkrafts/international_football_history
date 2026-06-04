@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../lib/api";
+import { api, type ApiParams } from "@/lib/api";
 
-export function useTeams(params?: any) {
+export function useTeams(params?: ApiParams) {
   return useQuery({
     queryKey: ["teams", params],
     queryFn: () => api.teams(params),
@@ -16,7 +16,7 @@ export function useTeamProfile(name: string) {
   });
 }
 
-export function useTeamMatches(name: string, params?: any) {
+export function useTeamMatches(name: string, params?: ApiParams) {
   return useQuery({
     queryKey: ["team-matches", name, params],
     queryFn: () => api.teamMatches(name, params),
@@ -24,7 +24,7 @@ export function useTeamMatches(name: string, params?: any) {
   });
 }
 
-export function useTeamRivals(name: string, params?: any) {
+export function useTeamRivals(name: string, params?: ApiParams) {
   return useQuery({
     queryKey: ["team-rivals", name, params],
     queryFn: () => api.teamRivals(name, params),
@@ -32,7 +32,7 @@ export function useTeamRivals(name: string, params?: any) {
   });
 }
 
-export function useTeamScorers(name: string, params?: any) {
+export function useTeamScorers(name: string, params?: ApiParams) {
   return useQuery({
     queryKey: ["team-scorers", name, params],
     queryFn: () => api.teamScorers(name, params),

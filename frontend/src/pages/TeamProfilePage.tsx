@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useTeamProfile, useTeamMatches, useTeamRivals, useTeamScorers } from "../../hooks/useTeams";
-import PageWrapper from "../../components/layout/PageWrapper";
-import MatchRow from "../../components/ui/MatchRow";
+import { useTeamProfile, useTeamMatches, useTeamRivals, useTeamScorers } from "@/hooks/useTeams";
+import PageWrapper from "@/components/layout/PageWrapper";
+import MatchRow from "@/components/ui/MatchRow";
+import type { Match } from "@/types";
 
 export default function TeamProfilePage() {
   const { name } = useParams();
@@ -74,7 +75,7 @@ export default function TeamProfilePage() {
           <div className="bg-surface border border-border-pitch rounded-xl p-6">
             <h3 className="text-lg font-semibold text-light mb-4">Top Rivals</h3>
             <div className="space-y-2">
-              {rivals?.rivals?.map((r: any) => (
+              {rivals?.rivals?.map((r: { opponent: string; wins: number; draws: number; losses: number }) => (
                 <div key={r.opponent} className="flex items-center justify-between">
                   <span className="text-light text-sm">{r.opponent}</span>
                   <span className="text-muted text-sm">{r.wins}W {r.draws}D {r.losses}L</span>
@@ -86,7 +87,7 @@ export default function TeamProfilePage() {
           <div className="bg-surface border border-border-pitch rounded-xl p-6">
             <h3 className="text-lg font-semibold text-light mb-4">Top Scorers</h3>
             <div className="space-y-2">
-              {scorers?.scorers?.map((s: any) => (
+              {scorers?.scorers?.map((s: { name: string; goals: number }) => (
                 <div key={s.name} className="flex items-center justify-between">
                   <span className="text-light text-sm">{s.name}</span>
                   <span className="text-accent-gold font-medium">{s.goals}</span>
@@ -112,7 +113,7 @@ export default function TeamProfilePage() {
                 </tr>
               </thead>
               <tbody>
-                {matches?.data?.map((match: any) => (
+                {matches?.data?.map((match: Match) => (
                   <MatchRow key={`${match.date}-${match.home_team}-${match.away_team}`} match={match} team={decodedName} />
                 ))}
               </tbody>

@@ -1,5 +1,5 @@
-import { useTimeline } from "../../hooks/useTimeline";
-import PageWrapper from "../../components/layout/PageWrapper";
+import { useTimeline } from "@/hooks/useTimeline";
+import PageWrapper from "@/components/layout/PageWrapper";
 
 export default function TimelinePage() {
   const { data, isLoading } = useTimeline();
@@ -17,7 +17,7 @@ export default function TimelinePage() {
         ) : (
           <div className="bg-surface border border-border-pitch rounded-xl p-6 overflow-x-auto">
             <div className="min-w-[1200px]">
-              {data?.events?.slice(0, 100).map((event: any, i: number) => (
+              {data?.events?.slice(0, 100).map((event: { date: string; home_team: string; away_team: string; home_score: number; away_score: number; tournament: string }, i: number) => (
                 <div key={i} className="flex items-center gap-4 py-2 border-b border-border-pitch">
                   <span className="w-24 text-muted text-sm shrink-0">{event.date}</span>
                   <span className="w-32 text-light font-medium shrink-0">{event.home_team}</span>

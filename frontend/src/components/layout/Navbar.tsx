@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { useAppStore } from "../../stores/useAppStore";
-import { cn } from "../../lib/utils";
+import { useAppStore } from "@/stores/useAppStore";
+import { cn } from "@/lib/utils";
 
 const tabs = [
   { path: "/", label: "Dashboard", id: "dashboard" as const },

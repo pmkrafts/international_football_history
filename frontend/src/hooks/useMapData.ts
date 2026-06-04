@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../lib/api";
+import { api, type ApiParams } from "@/lib/api";
 
 export function useMapCountries() {
   return useQuery({
@@ -8,7 +8,7 @@ export function useMapCountries() {
   });
 }
 
-export function useCountryMatches(country: string, params?: any) {
+export function useCountryMatches(country: string, params?: ApiParams) {
   return useQuery({
     queryKey: ["country-matches", country, params],
     queryFn: () => api.countryMatches(country, params),

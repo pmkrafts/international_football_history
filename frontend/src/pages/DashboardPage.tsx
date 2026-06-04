@@ -1,11 +1,12 @@
-import { useDashboardStats } from "../../hooks/useMatches";
-import { useTrends } from "../../hooks/useTimeline";
-import { useMatches } from "../../hooks/useMatches";
-import KpiCard from "../../components/ui/KpiCard";
-import MatchRow from "../../components/ui/MatchRow";
-import FilterBar from "../../components/ui/FilterBar";
-import PageWrapper from "../../components/layout/PageWrapper";
-import SkeletonCard from "../../components/ui/SkeletonCard";
+import { useDashboardStats } from "@/hooks/useMatches";
+import { useTrends } from "@/hooks/useTimeline";
+import { useMatches } from "@/hooks/useMatches";
+import KpiCard from "@/components/ui/KpiCard";
+import MatchRow from "@/components/ui/MatchRow";
+import FilterBar from "@/components/ui/FilterBar";
+import PageWrapper from "@/components/layout/PageWrapper";
+import SkeletonCard from "@/components/ui/SkeletonCard";
+import type { Match } from "@/types";
 
 export default function DashboardPage() {
   const { data: stats, isLoading: statsLoading } = useDashboardStats();
@@ -42,7 +43,7 @@ export default function DashboardPage() {
             <div className="bg-surface border border-border-pitch rounded-xl p-6">
               <h3 className="text-lg font-semibold text-light mb-4">Matches per Decade</h3>
               <div className="space-y-2">
-                {trends.trends?.map((t: any) => (
+                {trends.trends?.map((t: { period: string; matches: number }) => (
                   <div key={t.period} className="flex items-center">
                     <span className="w-16 text-muted text-sm">{t.period}s</span>
                     <div className="flex-1 h-4 bg-border-pitch rounded-full overflow-hidden">
@@ -60,7 +61,7 @@ export default function DashboardPage() {
             <div className="bg-surface border border-border-pitch rounded-xl p-6">
               <h3 className="text-lg font-semibold text-light mb-4">Top Tournaments</h3>
               <div className="space-y-2">
-                {stats?.top_tournaments?.map((t: any) => (
+                {stats?.top_tournaments?.map((t: { tournament: string; count: number }) => (
                   <div key={t.tournament} className="flex items-center justify-between">
                     <span className="text-light text-sm">{t.tournament}</span>
                     <span className="text-accent-gold font-medium">{t.count.toLocaleString()}</span>
@@ -88,7 +89,7 @@ export default function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {matches?.data?.map((match: any) => (
+                {matches?.data?.map((match: Match) => (
                   <MatchRow key={`${match.date}-${match.home_team}-${match.away_team}`} match={match} />
                 ))}
               </tbody>
