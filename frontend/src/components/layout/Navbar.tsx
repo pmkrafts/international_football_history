@@ -13,12 +13,12 @@ export default function Navbar() {
   const { activeTab, setActiveTab } = useAppStore();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-pitch/90 backdrop-blur-md border-b border-border-pitch">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-mm-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link
             to="/"
-            className="text-xl font-bold text-accent-green tracking-tight"
+            className="text-xl font-bold text-mm-green tracking-tight"
             onClick={() => setActiveTab("dashboard")}
           >
             Football History Explorer
@@ -31,15 +31,15 @@ export default function Navbar() {
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
                   "relative px-3 py-2 text-sm font-medium transition-all duration-300",
-                  "hover:text-accent-green",
+                  "hover:text-mm-green",
                   activeTab === tab.id || location.pathname === tab.path
-                    ? "text-accent-green"
-                    : "text-muted"
+                    ? "text-mm-green"
+                    : "text-mm-gray-600"
                 )}
               >
                 {tab.label}
                 {(activeTab === tab.id || location.pathname === tab.path) && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-green" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-mm-green" />
                 )}
               </Link>
             ))}

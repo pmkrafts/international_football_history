@@ -1,19 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  --color-pitch: #0A0F0A;
-  --color-surface: #111B11;
-  --color-accent-green: #00FF85;
-  --color-accent-gold: #FFD700;
-  --color-light: #F8FAF8;
-  --color-muted: #A3B5A3;
-  --color-border-pitch: #1F2A1F;
-  --color-win-green: #00FF85;
-  --color-loss-red: #FF4D4D;
-  --color-draw-gold: #FFD700;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --color-pitch: #FFFFFF;
+  --color-surface: #F6F7F9;
+  --color-accent-green: #84CC16;
+  --color-accent-gold: #84CC16;
+  --color-light: #0F172A;
+  --color-muted: #5F6368;
+  --color-border-pitch: #E8EAED;
+  --color-win-green: #84CC16;
+  --color-loss-red: #EF4444;
+  --color-draw-gold: #F59E0B;
+
+  --color-mm-white: #FFFFFF;
+  --color-mm-cream: #F6F7F9;
+  --color-mm-gray-50: #F8F9FA;
+  --color-mm-gray-100: #F1F3F4;
+  --color-mm-gray-200: #E8EAED;
+  --color-mm-gray-300: #DADCE0;
+  --color-mm-gray-400: #9AA0A6;
+  --color-mm-gray-500: #80868B;
+  --color-mm-gray-600: #5F6368;
+  --color-mm-gray-700: #3C4043;
+  --color-mm-gray-800: #202124;
+  --color-mm-gray-900: #0F172A;
+  --color-mm-green: #84CC16;
+  --color-mm-green-dark: #65A30D;
+  --color-mm-green-light: #D9F99D;
+  --color-mm-black: #0F172A;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0A0F0A;
-  color: #F8FAF8;
+  background-color: #FFFFFF;
+  color: #0F172A;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #D9F99D;
+  color: #0F172A;
 }
