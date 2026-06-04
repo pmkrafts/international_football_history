@@ -1,0 +1,12 @@
+[project]
+name = "football-history-explorer-backend"
+version = "1.0"
+description = "FastAPI backend for Football History Explorer"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "duckdb",
+    "pandas",
+    "pydantic",
+]
