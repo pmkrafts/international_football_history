@@ -48,16 +48,22 @@ def get_match_detail(date, home, away):
     return match
 
 def get_result(row, team=None):
-    perspective = team or row['home_team']
-    if row['home_team'] == perspective:
-        if row['home_score'] > row['away_score']:
+    perspective = team or row.get('home_team')
+    home_score = row.get('home_score')
+    away_score = row.get('away_score')
+    
+    if home_score is None or away_score is None:
+        return "draw"
+    
+    if row.get('home_team') == perspective:
+        if home_score > away_score:
             return "win"
-        elif row['home_score'] < row['away_score']:
+        elif home_score < away_score:
             return "loss"
     else:
-        if row['away_score'] > row['home_score']:
+        if away_score > home_score:
             return "win"
-        elif row['away_score'] < row['home_score']:
+        elif away_score < home_score:
             return "loss"
     return "draw"
 
@@ -65,7 +71,7 @@ def get_timeline(decade, tournament):
     con = get_db()
     filters = []
     if decade:
-        filters.append(f"CAST(date as DATE).year BETWEEN {decade} AND {decade + 9}")
+        filters.append(f"EXTRACT(YEAR FROM date) BETWEEN {decade} AND {decade + 9}")
     if tournament:
         filters.append(f"tournament = '{tournament}'")
     where = " WHERE " + " AND ".join(filters) if filters else ""
@@ -91,7 +97,7 @@ def get_dashboard_stats(date_from, date_to):
     
     highest = con.execute(f"SELECT * FROM results {where} ORDER BY (home_score + away_score) DESC LIMIT 1").fetchdf().to_dict('records')
     
-    decades = con.execute(f"SELECT FLOOR(CAST(date as DATE).year / 10) * 10 as decade, COUNT(*) as count FROM results {where} GROUP BY decade ORDER BY count DESC LIMIT 1").fetchdf().to_dict('records')
+    decades = con.execute(f"SELECT FLOOR(EXTRACT(YEAR FROM date) / 10) * 10 as decade, COUNT(*) as count FROM results {where} GROUP BY decade ORDER BY count DESC LIMIT 1").fetchdf().to_dict('records')
     most_active_decade = str(int(decades[0]['decade'])) + "s" if decades else "N/A"
     
     return {
@@ -106,9 +112,9 @@ def get_dashboard_stats(date_from, date_to):
 def get_trends(group_by):
     con = get_db()
     if group_by == "decade":
-        query = "SELECT FLOOR(CAST(date as DATE).year / 10) * 10 as period, COUNT(*) as matches, SUM(home_score + away_score) as goals FROM results GROUP BY period ORDER BY period"
+        query = "SELECT FLOOR(EXTRACT(YEAR FROM date) / 10) * 10 as period, COUNT(*) as matches, SUM(home_score + away_score) as goals FROM results GROUP BY period ORDER BY period"
     else:
-        query = "SELECT CAST(date as DATE).year as period, COUNT(*) as matches, SUM(home_score + away_score) as goals FROM results GROUP BY period ORDER BY period"
+        query = "SELECT EXTRACT(YEAR FROM date) as period, COUNT(*) as matches, SUM(home_score + away_score) as goals FROM results GROUP BY period ORDER BY period"
     rows = con.execute(query).fetchdf().to_dict('records')
     return {"trends": rows}
 
